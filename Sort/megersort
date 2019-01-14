@@ -1,0 +1,47 @@
+#include <iostream>
+#include<stdlib.h>
+
+using namespace std;
+
+
+
+
+
+void meger(int *arr, int l, int r, int mid)
+{
+	int i=l, j=mid+1;
+	int *tmp = (int *)malloc((r - l + 1) * sizeof(int));
+	int cnt = 0;
+	while (i <= mid && j <= r) {
+		if (arr[i] < arr[j]) {
+			tmp[cnt++] = arr[i++];
+		}
+		else {
+			tmp[cnt++] = arr[j++];
+		}
+	}
+	while (i <= mid) tmp[cnt++] = arr[i++];
+	while (j <= r) tmp[cnt++] = arr[j++];
+	for (int i = 0; i < cnt; i++) {
+		arr[l + i] = tmp[i];
+	}
+}
+
+void megersort(int *arr, int l, int r)
+{
+	if (l < r) {
+		int mid = (l + r) / 2;
+		megersort(arr, l, mid);
+		megersort(arr, mid + 1, r);
+		meger(arr, l, r, mid);
+	}
+}
+
+/*int main()
+{
+	int a[5] = { 1, 3, 2, 4, 6 };
+	megersort(a, 0, 4);
+	for (int x : a) cout << x << endl;
+	system("pause");
+	return 0;
+}*/
